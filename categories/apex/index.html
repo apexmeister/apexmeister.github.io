@@ -354,9 +354,9 @@
             通过hexo和github-page搭建个人博客简单教程github io设置
 注册github账号注册链接;
 填写账户信息，完成注册并登录（注意：此用户名将作为 Blog 的域名）
-创建一个repo![creat_repo](https://github.com/apexmeister/blog_pic/blob/master/blog1/blog1.png "创建repo")
+创建一个repo![creat_repo](https://raw.githubusercontent.com/apexmeister/blog_pic/master/blog1/blog1.png "创建repo")
 填写 repo 的名称时注意格式：username.github.io，其他选项按默认即可
-初始化编辑github io，点击setting![setting](https://github.com/apexm...
+初始化编辑github io，点击setting![setting](https://github...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -611,7 +611,23 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+</body>
 </html>
 
 
