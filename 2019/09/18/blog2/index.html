@@ -508,10 +508,37 @@ height:70vh;
 <blockquote>
 <p>​                                                       <script type="math/tex">\sum_{j=1}^m y_jlogP_j(y_j)</script></p>
 </blockquote>
+<hr>
 <h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><h3 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h3><p>实验采用了两个数据集：<strong>Cam676</strong>和<strong>KVRET</strong></p>
 <p><img src="//apexmeister.github.io/2019/09/18/blog2/3.png" alt="dataset"></p>
 <p>CamRest676里记录的对话主要是餐馆搜索的单一领域，而KVRET则更广泛些，主要包含三个领域：日期计划、天气信息检索和point of interest Navigation(?)。</p>
-<h3 id="result"><a href="#result" class="headerlink" title="result"></a>result</h3><p><img src="//apexmeister.github.io/2019/09/18/blog2/4.png" alt="result"></p>
+<h3 id="result"><a href="#result" class="headerlink" title="result"></a>result</h3><p>实验主要从任务完成能力、语言生成质量和效率三个方面来评估序列的有效性。评估指标如下所示：</p>
+<p>主要包括了：<script type="math/tex">BLEU, Entity match rate, Success F_1, Training\;Time</script></p>
+<p>实验主要对比对象为：</p>
+<ul>
+<li><script type="math/tex">NDM</script> :  通过pipeline方法实现的带有抽取式标注追踪器的模型</li>
+<li><script type="math/tex">NDM+Att+SS</script> ：NDM模型 + Attention机制 + snapshot learning 机制</li>
+<li><script type="math/tex">LIDM</script>：NDM模型 + 强化学习神经变化推理</li>
+<li><script type="math/tex">KVRN</script>：由一个seq2seq模型构成并且也与外部知识库进行交互，然而却没有标注追踪功能</li>
+</ul>
+<p>对于<script type="math/tex">NDM,NDM+Att+SS,LIDM</script>主要是在原始数据集进行测试，由于没有开放源码，作者表示还在复现中。</p>
+<p>作者还对本文的<strong>Sequicity</strong>进行消融测试：</p>
+<ul>
+<li><script type="math/tex">TSCP/k_t.</script> 在解码过程中去除了<script type="math/tex">k_t</script>的参与</li>
+<li><script type="math/tex">TSCP/RL.</script> 在响应生成过程中去除了强化学习环节</li>
+<li><script type="math/tex">Att-RNN.</script> 采用标准Seq2Seq</li>
+<li><script type="math/tex">TSCP/B_t.</script> 不用belief span的方法记录标记而采用传统的<strong>把历史所有轮对话进行拼接</strong>送入拷贝网络生成<strong>用户信息slots</strong>用于<strong>知识库搜索</strong>和<strong>响应生成</strong></li>
+</ul>
+<p><img src="//apexmeister.github.io/2019/09/18/blog2/4.png" alt="result"></p>
+<h3 id="OOV-实验"><a href="#OOV-实验" class="headerlink" title="OOV 实验"></a>OOV 实验</h3><p>早期的设计会把所有slot的值都预定义在一个belief tracker中，但这种做法在面临用户的请求带有新值时会造成无法匹配的问题。</p>
+<p>而<script type="math/tex">TSCP</script>运用了拷贝机制，对解决OOV问题比较有优势，故在三个具有代表性的模型：<script type="math/tex">TSCP、TSCP/B_t、NDM</script>之间设计了一个OOV测试，首先手动构造OOV数据:</p>
+<blockquote>
+<p>​                例： 把 “ I would like Chinese food . ” 变成</p>
+<p>​                             ” I would like Chinese_unk food. “</p>
+</blockquote>
+<p>让不同比例的测试数据变成如上描述的OOV数据进行测试，结果如下：</p>
+<p><img src="//apexmeister.github.io/2019/09/18/blog2/5.png" alt="OOV"></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>这篇论文提出了两个比较有意义的概念：<script type="math/tex">belief\;span</script> 和 <script type="math/tex">Sequicity</script> 结构，belief span改变了传统的把用户标记信息当作分类任务来处理的方法，转而变为一种序列填充的问题，极大地优化了存储能力和对于OOV的处理能力；由belief span引出的Sequicity则是首次将任务型对话通过一个seq2seq用端到端的方式实现出来，避开了对belief tracker的与训练，同时文章使用的TSCP通过拷贝机制极大地降低了运算复杂度，并且在OOV问题上能够有很好的匹配能力</p>
 
     </article>
     <!-- license  -->
@@ -520,7 +547,7 @@ height:70vh;
             <p>Author：<a href="https://apexmeister.github.io">ApEx&mOmOcO</a>
             <p>原文链接：<a href="https://apexmeister.github.io/2019/09/18/blog2/">https://apexmeister.github.io/2019/09/18/blog2/</a>
             <p>发表日期：<a href="https://apexmeister.github.io/2019/09/18/blog2/">September 18th 2019, 3:36:29 pm</a>
-            <p>更新日期：<a href="https://apexmeister.github.io/2019/09/18/blog2/">September 18th 2019, 4:17:15 pm</a>
+            <p>更新日期：<a href="https://apexmeister.github.io/2019/09/18/blog2/">September 18th 2019, 7:44:52 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可, 转载请注明出处</p>
         </div>
     
@@ -663,7 +690,7 @@ top:70vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记"><span class="toc-number">1.</span> <span class="toc-text">《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method"><span class="toc-number">1.3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Belief-Spans-for-Belief-Tracking"><span class="toc-number">1.3.1.</span> <span class="toc-text">Belief Spans for Belief Tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Sequicity-Framwork"><span class="toc-number">1.3.2.</span> <span class="toc-text">The Sequicity Framwork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequicity-Instantiation-A-Two-Stage-CopyNet"><span class="toc-number">1.3.3.</span> <span class="toc-text">Sequicity Instantiation: A Two Stage CopyNet</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">1.4.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset"><span class="toc-number">1.4.1.</span> <span class="toc-text">Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#result"><span class="toc-number">1.4.2.</span> <span class="toc-text">result</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记"><span class="toc-number">1.</span> <span class="toc-text">《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method"><span class="toc-number">1.3.</span> <span class="toc-text">Method</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Belief-Spans-for-Belief-Tracking"><span class="toc-number">1.3.1.</span> <span class="toc-text">Belief Spans for Belief Tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Sequicity-Framwork"><span class="toc-number">1.3.2.</span> <span class="toc-text">The Sequicity Framwork</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sequicity-Instantiation-A-Two-Stage-CopyNet"><span class="toc-number">1.3.3.</span> <span class="toc-text">Sequicity Instantiation: A Two Stage CopyNet</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">1.4.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset"><span class="toc-number">1.4.1.</span> <span class="toc-text">Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#result"><span class="toc-number">1.4.2.</span> <span class="toc-text">result</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OOV-实验"><span class="toc-number">1.4.3.</span> <span class="toc-text">OOV 实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">1.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -823,23 +850,7 @@ jsonContent:
     
         <script src="/scripts/share.js" async></script>    
      
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-</body>
+    </body>
 </html>
 
 
