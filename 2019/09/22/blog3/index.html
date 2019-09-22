@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="ApEx&mOmOcO">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="ApEx&mOmOcO">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记 · ApEx&amp;mOmOcO&#39;s Lofter</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >ApEx&amp;mOmOcO&#39;s Lofter.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>ApEx&mOmOcO's Lofter.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:70vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg1.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "self-attention">self-attention</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Multi-turn">Multi-turn</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Dialogue Generation">Dialogue Generation</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">2.6k</span>Reading time: <span class="post-count reading-time">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/09/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><img src="//apexmeister.github.io/2019/09/22/blog3/1.png" alt="封面"></p>
+<h1 id="ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文"><a href="#ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文" class="headerlink" title="ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文"></a>ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文</h1><hr>
+<blockquote>
+<p><strong>题目：</strong>ReCoSa: Detecting the Relevant Contexts with Self-Attention for Multi-turn Dialogue Generation</p>
+<p><strong>来源：</strong>ACL 2019</p>
+<p><strong>原文链接：</strong><a herf="https://arxiv.org/abs/1907.05339">https://arxiv.org/abs/1907.05339</a></p>
+<p><strong>论文代码：</strong><a herf="https://github.com/zhanghainan/ReCoSa">https://github.com/zhanghainan/ReCoSa
+</a></p>
+<p><strong>转载请注明出处：</strong><a herf="https://apexmeister.github.io/">apex&amp;momoco</a></p>
+</blockquote>
+<hr>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>传统多轮对话生成任务中，为了获得能够指导回复生成的一些相关性较大的前轮对话信息，往往会采用类似<strong>余弦相似度（cosine similarity）</strong>或是<strong>传统的attention机制</strong>的方法，但是这种做法却又会导致<strong>相关假设不足（insufficient relevance assumption）</strong>或是<strong>位置偏差问题（position bias problem）</strong>，故为了解决上述问题，作者在本文提出了一个新模型：<strong>ReCoSa</strong>，其主要包括了三步：</p>
+<ul>
+<li>首先，通过一个字级别的<script type="math/tex">LSTM</script>编码器来获得每轮对话的上下文的初始表示。</li>
+<li>然后，用<script type="math/tex">Self-attention</script>同时更新的上下文表示和响应的masked表示</li>
+<li>最后，计算每个上下文表示和响应表示之间的<strong>注意力权重（attention weights</strong>），并在进一步的解码响应的过程中使用。</li>
+</ul>
+<p>本文对ReCoSa的实验主要基于两个数据集：<script type="math/tex">Chinese\;\ Customers\;\ Services\;\ dataset</script> 和<script type="math/tex">English\;\ Ubuntu\;\ dialogue\;\ dataset</script></p>
+<hr>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在自然语言处理的许多应用中，多轮对话生成任务都是其核心问题之一，如：智能客服，个人助理或聊天机器人等。</p>
+<p>比较普遍的方法，主要如<script type="math/tex">hierarchical\;\ recurrent\;\ encoder-decoder</script>这样的<script type="math/tex">HRED</script>模型一样，首先通过一组分层的<script type="math/tex">RNN</script>对前轮的所有上下文进行编码，编成向量组后整合成一个向量做为前轮所有上下文的表示，响应则会通过这个整合的向量解码而来。编码器和解码器所有参数则通过<strong>最大化预测值和训练集之间的平均似然</strong>值进行学习更新。</p>
+<p>然而，在这个任务中，响应的生成显然不应该如同上述方式一样<strong>不加区分地</strong>参考所有的上下文，这样会给模型和响应的生成引入许多无关的噪声，因此分析并选择对多轮对话生成最有用最相关的上下文，如图所示，标红的即为最相关的句子。</p>
+<p><img src="//apexmeister.github.io/2019/09/22/blog3/2.png" alt="context"></p>
+<p>为了解决这个问题，也有许多方法被提出，但他们都或多或少存在问题：</p>
+<ul>
+<li><script type="math/tex">Cosine\;\ Similarity</script> —— <script type="math/tex">Insufficient\;\ Relevance\;\ Assumption</script> ：</li>
+</ul>
+<p>这个方法通过计算上下文和问句（post）之间的相似度以获得哪一个上下文内容会最相关，作者认为这种方法，基于一种不合理不充分的假设：假设了<strong>上下文和问句之间的相关性</strong>等价于<strong>上下文和响应之间的相关性</strong>。作者认为这种假设在许多例子中很容易被推翻，如上述的例子2。</p>
+<ul>
+<li><script type="math/tex">Traditional\;\ Attention\;\ Mechanism</script> —— <script type="math/tex">Position\;\ Bias\;\ Problem</script>：</li>
+</ul>
+<p>通过对<script type="math/tex">HRED</script>模型加入传统的attention机制（可能是soft-attention这种最古老的？），希望能够获得最相关的上下文，然而作者指出，最相关的上下文有可能在多轮对话的响应很远。由于比较偏爱选择位置较近的上下文，因此这种方法在多轮对话任务中表现必然不佳。</p>
+<p>综上所述，作者提出了<script type="math/tex">ReCoSa</script>，其<strong>核心思想</strong>就是<strong>运用最新的<script type="math/tex">\boldsymbol{Self-attention}</script>机制来寻找和当前响应最相关的上下文</strong>，选择Self-attention主要因为其对于获得<strong>长距离依赖关系</strong>具有比较好的表现。</p>
+<p>通过对<script type="math/tex">ReCoSa</script>在<script type="math/tex">Chinese\;\ Customers\;\ Services\;\ dataset</script> 和<script type="math/tex">English\;\ Ubuntu\;\ dialogue\;\ dataset</script>这两个数据集上进行测试发现<script type="math/tex">ReCoSa</script>在生成的多样性和合理性都超过了传统的<script type="math/tex">HRED</script>，同时，作者还对attention进行了单独分析，结果表明，该模型检测到的<strong>相关上下文</strong>与<strong>人类标记</strong>的一致性较好，这说明该模型检测到的相关上下文是合理的。</p>
+<hr>
+<h2 id="Relevant-Context-Self-Attention-Model"><a href="#Relevant-Context-Self-Attention-Model" class="headerlink" title="Relevant Context Self-Attention Model"></a>Relevant Context Self-Attention Model</h2><p><img src="//apexmeister.github.io/2019/09/22/blog3/3.png" alt="recosa"></p>
+<p>如图所示，模型包括了三部分：<strong>上下文表示编码器</strong>，<strong>响应表示编码器</strong>，<strong>上下文-响应attention解码器</strong>。</p>
+<p>其中每部分都用了多头自注意机制，分别获得上下文表示，响应表示和上下文响应attention权重。</p>
+<h3 id="上下文表示编码器"><a href="#上下文表示编码器" class="headerlink" title="上下文表示编码器"></a>上下文表示编码器</h3><h4 id="词级别编码器"><a href="#词级别编码器" class="headerlink" title="词级别编码器"></a>词级别编码器</h4><p>给定上下文序列 <script type="math/tex">C = \{s_1,...,s_N\}</script>，其中<script type="math/tex">C</script>中的每一句文字序列<script type="math/tex">s_i</script>可定义为<script type="math/tex">s_i=\{x_1,...,x_N\}</script>。</p>
+<blockquote>
+<p>注意：文中所提到的问句<script type="math/tex">post</script>指的是最后一个上下文文字序列<script type="math/tex">s_N</script>。</p>
+</blockquote>
+<p>将一段上下文序列<script type="math/tex">s_i</script>输入一个标准<script type="math/tex">LSTM</script>编码器以获得一个固定维度的向量<script type="math/tex">h_M</script>：</p>
+<blockquote>
+<p>​                      <script type="math/tex">i_k = \sigma(W_i[h_{k-1},w_k])</script>，<script type="math/tex">f_k=\sigma(W_f[h_{k-1},w_k])</script>，</p>
+<p>​                     <script type="math/tex">o_k = \sigma(W_o[h_{k-1},w_k])</script>， <script type="math/tex">l_k=tanh(W_l[h_{k-1},w_k])</script>，</p>
+<p>​                     <script type="math/tex">c_k=f_kc_{k-1}+i_kl_k</script>，<script type="math/tex">\; \; \; \; \; \;h_i=o_ktanh(c_k)</script>，</p>
+</blockquote>
+<p>其中，<script type="math/tex">i_k，f_k，o_k</script>分别是输入，记忆和输出门（<script type="math/tex">Gate</script>），<script type="math/tex">w_k</script>是<script type="math/tex">x_k</script>的词向量表示，通过结合<script type="math/tex">w_k</script>和<script type="math/tex">h_{k-1}</script>可以计算出时间步<script type="math/tex">k</script>时的隐状态<script type="math/tex">h_k</script>。<script type="math/tex">c_k</script>表示时间步<script type="math/tex">k</script>时的细胞状态（<script type="math/tex">LSTM</script>细胞状态），<script type="math/tex">\sigma</script>表示了<script type="math/tex">sigmoid</script>函数。<script type="math/tex">W_i</script>，<script type="math/tex">W_f</script>，<script type="math/tex">W_o</script>以及<script type="math/tex">W_l</script>都是参数，最后，用<script type="math/tex">h_M</script>作为最终句子的表示，就可以获得上下文句子序列的表示<script type="math/tex">\{h^{s_1},...,h^{s_N}\}</script>。</p>
+<blockquote>
+<p>一个公认的问题就是，自注意力机制（<script type="math/tex">Self-attention</script>）本身无法区分不同的位置</p>
+</blockquote>
+<p>在给上下文语句编码时，同时编入每个词的位置信息也是十分重要的，而在众多运用位置信息的方法中，选择最简单的方法，即：直接拼接<strong>句子向量</strong>和<strong>位置向量</strong>作为一组：令<script type="math/tex">P_i \in R^d,i=1,...,N</script> 为位置向量，拼接后，得到最终的上下文句子序列表示为：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \{(h^{s_1},P_1),...,(h^{s_N},P_N)\}</script></blockquote>
+<h4 id="上下文自注意力机制"><a href="#上下文自注意力机制" class="headerlink" title="上下文自注意力机制"></a>上下文自注意力机制</h4><blockquote>
+<p>自注意力机制是一种通过序列本身计算序列的注意力机制，其主要好处就是能够很好地捕捉长距离的依赖信息。</p>
+</blockquote>
+<p>文章中采用了<strong>多头注意力机制</strong>，首先给定了<script type="math/tex">n</script>个<script type="math/tex">query</script>向量的矩阵<script type="math/tex">Q \in R^{n\times d}</script>，<script type="math/tex">keys</script>的矩阵<script type="math/tex">K \in R^{n \times d}</script> 以及<script type="math/tex">Values</script>的矩阵<script type="math/tex">V \in R^{n \times d}</script>。</p>
+<p>实际中一组<script type="math/tex">Q</script>，<script type="math/tex">K</script>，<script type="math/tex">V</script>可以通过对上下文序列的词级表示<script type="math/tex">\{(h^{s_1},P_1),...,(h^{S_N},P_N)\}</script>进行不同的<strong>线性映射</strong>。</p>
+<p>运用<strong>放缩点积注意力机制</strong>计算<strong>注意力得分</strong>：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d}})</script></blockquote>
+<p>其中<script type="math/tex">d</script>是网络中隐层的单元数。</p>
+<p>通过<script type="math/tex">H</script>个并行的头对<script type="math/tex">value</script>向量进行多通道不同部分聚焦关注：</p>
+<blockquote>
+<p>对于第<script type="math/tex">i-th</script>个头，首先定义对于<script type="math/tex">queries</script>，<script type="math/tex">keys</script>，<script type="math/tex">values</script>而言，有已学习的线性映射</p>
+<script type="math/tex; mode=display">W_i^Q\in R^{n\times d/H}$$ ，$$W_i^K\in R^{n\times d/H}$$ ，$$W_i^V\in R^{n\times d/H}</script></blockquote>
+<p>然后通过<strong>放缩点积注意力机制</strong>计算<script type="math/tex">queries</script>和<script type="math/tex">keys</script>之间的相关性得分以获得一个混合的表示：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; M_i=Attention(QW_i^Q,KW_i^K,VK_i^V)</script></blockquote>
+<p>最后把所有并行的头产生的混合表示<script type="math/tex">M_i</script>进行拼接，再通过一个<strong>线性映射</strong>将这些表示进一步混合：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; M=Concat(M_1,...,M_H)</script><script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; O=MW</script></blockquote>
+<p>其中<script type="math/tex">M \in R^{n\times d}</script>，<script type="math/tex">W \in R^{d \times d}</script></p>
+<p>对计算而来的上下文表示<script type="math/tex">O_s</script>传入一个<strong>前馈神经网络</strong>即可得到上下文的注意力表示<script type="math/tex">O_s^f</script>。</p>
+<h3 id="响应表示编码器"><a href="#响应表示编码器" class="headerlink" title="响应表示编码器"></a>响应表示编码器</h3><p>给定了响应<script type="math/tex">Y=\{y_1,...,y_M\}</script>作为输入，通过另一个<strong>多头自注意力机制</strong>把<strong>词向量</strong>以及其<strong>对应位置向量</strong>编码为响应表示。对于每个时间步<script type="math/tex">t</script>的词<script type="math/tex">y_t</script>，这个注意力机制传入一个<strong>响应向量矩阵</strong><script type="math/tex">\{(w_1+P_1),...,(w_{t-1},P_{t-1})\}</script>通过不同的<strong>线性映射</strong>获得<script type="math/tex">queries</script>，<script type="math/tex">keys</script>，<script type="math/tex">values</script>，而响应的隐藏表示<script type="math/tex">O_r</script>则如同上下文的表示一样得到。</p>
+<p>然后，对训练时的响应真值做一个mask处理，对于时间步<script type="math/tex">t</script>的词<script type="math/tex">y_t</script>，把<script type="math/tex">\{y_{t+1},...,y_M\}</script>进行mask，只可见<script type="math/tex">\{y_1,...,y_{t-1}\}</script>。</p>
+<h3 id="上下文-响应attention解码器"><a href="#上下文-响应attention解码器" class="headerlink" title="上下文-响应attention解码器"></a>上下文-响应attention解码器</h3><p>模型中第三个<strong>多头注意力机制</strong>部分，通过接受<strong>上下文注意力表示</strong><script type="math/tex">O_s^f</script>作为<script type="math/tex">keys</script>和<script type="math/tex">values</script>以及接受<strong>响应隐藏表示</strong><script type="math/tex">O_r</script>作为<script type="math/tex">query</script>，输出记作<script type="math/tex">O_d</script>，同样也把这个输出传入一个<strong>前馈神经网络</strong>获得隐层表示<script type="math/tex">O_d^f</script>。</p>
+<p>最后通过一个<script type="math/tex">softmax</script>层来获得响应生成过程中每个位置词的<strong>生成概率</strong>。</p>
+<p>具体过程，给定输入的上下文序列<script type="math/tex">C=\{s_1,...,s_N\}</script>以及其相关联的响应序列<script type="math/tex">Y=\{y_1,...,y_M\}</script>的对数似然：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; logP(Y|C;\theta)=\sum_{t=1}^MlogP(y_t|C,y_1,...,y_{t-1};\theta)</script></blockquote>
+<p>而模型基于隐层表示<script type="math/tex">O_d^f</script>预测每个词<script type="math/tex">y_t</script>则通过一个最大选择的softmax层：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; P(y_t|C,y_1,...,y_{t-1};\theta)=P(y_t|O_d^f)\\\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;=softmax(W_oO_d^f)</script></blockquote>
+<p>其中<script type="math/tex">W_o</script>为学习参数。</p>
+<p>故训练目标就是获得让上述预测值与训练集中的真值的对数似然值最大的模型条件参数。</p>
+<p><script type="math/tex">Adam</script>是训练过程中的优化手段。</p>
+<hr>
+<h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><h3 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h3><h4 id="The-Chinese-Customer-service-dataset（JDC）"><a href="#The-Chinese-Customer-service-dataset（JDC）" class="headerlink" title="The Chinese Customer service dataset（JDC）"></a>The Chinese Customer service dataset（JDC）</h4><p>该数据集包含了515686条会话上下文响应对组成，随机抽取并将其且切分为500000条的<strong>训练集</strong>，7843条的<strong>验证集</strong>，7843条的<strong>测试集</strong>。</p>
+<h4 id="The-English-Ubuntu-Dialogue-corpus（ubuntu）"><a href="#The-English-Ubuntu-Dialogue-corpus（ubuntu）" class="headerlink" title="The English Ubuntu Dialogue corpus（ubuntu）"></a>The English Ubuntu Dialogue corpus（ubuntu）</h4><p>从Ubuntu question-answering论坛中抽取而来。原始的<strong>训练集</strong>包括了<strong>从2004年到2012年4月27日</strong>的7百万个会话。<strong>验证集</strong>包括了<strong>从2012年4月27日到2012年8月7日</strong>的会话内容。<strong>测试集</strong>则包括了<strong>从2012年8月7日到2012年12月1日</strong>的会话内容，使用正体字进行标记、词干和词性化，删除长度小于5或大于50的句子。最后，我们分别获得了3980000对、10000对和10000对用于训练、验证和测试。</p>
+<h3 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h3><p><img src="//apexmeister.github.io/2019/09/22/blog3/4.png" alt></p>
+<h3 id="attention-analysis-results"><a href="#attention-analysis-results" class="headerlink" title="attention analysis results"></a>attention analysis results</h3><p><img src="//apexmeister.github.io/2019/09/22/blog3/5.png" alt></p>
+<h3 id="human-evaluation-on-JDC-and-Ubuntu"><a href="#human-evaluation-on-JDC-and-Ubuntu" class="headerlink" title="human evaluation on JDC and Ubuntu"></a>human evaluation on JDC and Ubuntu</h3><p><img src="//apexmeister.github.io/2019/09/22/blog3/6.png" alt></p>
+<h3 id="Case-study"><a href="#Case-study" class="headerlink" title="Case study"></a>Case study</h3><p><img src="//apexmeister.github.io/2019/09/22/blog3/7.png" alt></p>
+<p><img src="//apexmeister.github.io/2019/09/22/blog3/8.png" alt></p>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>本文作者通过提出应用<strong>自注意力机制</strong>来改善多轮对话任务中，大多数模型对前轮上下文的参考程度或许<strong>不加参考</strong>或许<strong>参考不够准确</strong>的问题。而被提出的<script type="math/tex">ReCoSa</script>确实能够有不错的表现，在未来工作中，作者常识给<script type="math/tex">ReCoSa</script>引入一些主题信息以帮助其能更准确找到关联的上下文。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://apexmeister.github.io">ApEx&mOmOcO</a>
+            <p>原文链接：<a href="https://apexmeister.github.io/2019/09/22/blog3/">https://apexmeister.github.io/2019/09/22/blog3/</a>
+            <p>发表日期：<a href="https://apexmeister.github.io/2019/09/22/blog3/">September 22nd 2019, 10:10:30 pm</a>
+            <p>更新日期：<a href="https://apexmeister.github.io/2019/09/22/blog3/">September 22nd 2019, 10:17:57 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可, 转载请注明出处</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/09/18/blog2/" title= "《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记">
+                    <div class="prevTitle">《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:2224769796@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/apexmeister" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat_qr.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq_qr.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/teslooc/activities" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文"><span class="toc-number">1.</span> <span class="toc-text">ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relevant-Context-Self-Attention-Model"><span class="toc-number">1.3.</span> <span class="toc-text">Relevant Context Self-Attention Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#上下文表示编码器"><span class="toc-number">1.3.1.</span> <span class="toc-text">上下文表示编码器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#词级别编码器"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">词级别编码器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上下文自注意力机制"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">上下文自注意力机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应表示编码器"><span class="toc-number">1.3.2.</span> <span class="toc-text">响应表示编码器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上下文-响应attention解码器"><span class="toc-number">1.3.3.</span> <span class="toc-text">上下文-响应attention解码器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">1.4.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dataset"><span class="toc-number">1.4.1.</span> <span class="toc-text">Dataset</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-Chinese-Customer-service-dataset（JDC）"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">The Chinese Customer service dataset（JDC）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-English-Ubuntu-Dialogue-corpus（ubuntu）"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">The English Ubuntu Dialogue corpus（ubuntu）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Results"><span class="toc-number">1.4.2.</span> <span class="toc-text">Results</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attention-analysis-results"><span class="toc-number">1.4.3.</span> <span class="toc-text">attention analysis results</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#human-evaluation-on-JDC-and-Ubuntu"><span class="toc-number">1.4.4.</span> <span class="toc-text">human evaluation on JDC and Ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Case-study"><span class="toc-number">1.4.5.</span> <span class="toc-text">Case study</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">1.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 4
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/22</span><a class="archive-post-title" href= "/2019/09/22/blog3/" >《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/blog2/" >《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2019/09/16/blog1/" >通过hexo和github-page搭建个人博客简单教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2019/09/16/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="blog"><span class="iconfont-archer">&#xe606;</span>blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="tuitorial"><span class="iconfont-archer">&#xe606;</span>tuitorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
+    
+        <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
+    
+        <span class="sidebar-tag-name" data-tags="MultiWoz"><span class="iconfont-archer">&#xe606;</span>MultiWoz</span>
+    
+        <span class="sidebar-tag-name" data-tags="self-attention"><span class="iconfont-archer">&#xe606;</span>self-attention</span>
+    
+        <span class="sidebar-tag-name" data-tags="Multi-turn"><span class="iconfont-archer">&#xe606;</span>Multi-turn</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dialogue Generation"><span class="iconfont-archer">&#xe606;</span>Dialogue Generation</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="apex"><span class="iconfont-archer">&#xe60a;</span>apex</span>
+    
+        <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
+    
+        <span class="sidebar-category-name" data-categories="NLG"><span class="iconfont-archer">&#xe60a;</span>NLG</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "ApEx&mOmOcO"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
