@@ -472,7 +472,7 @@ height:70vh;
 <p>通过<script type="math/tex">H</script>个并行的头对<script type="math/tex">value</script>向量进行多通道不同部分聚焦关注：</p>
 <blockquote>
 <p>对于第<script type="math/tex">i-th</script>个头，首先定义对于<script type="math/tex">queries</script>，<script type="math/tex">keys</script>，<script type="math/tex">values</script>而言，有已学习的线性映射</p>
-<script type="math/tex; mode=display">W_i^Q\in R^{n\times d/H}$$ ，$$W_i^K\in R^{n\times d/H}$$ ，$$W_i^V\in R^{n\times d/H}</script></blockquote>
+<script type="math/tex; mode=display">W_i^Q\in R^{n\times d/H} ，W_i^K\in R^{n\times d/H} ，W_i^V\in R^{n\times d/H}</script></blockquote>
 <p>然后通过<strong>放缩点积注意力机制</strong>计算<script type="math/tex">queries</script>和<script type="math/tex">keys</script>之间的相关性得分以获得一个混合的表示：</p>
 <blockquote>
 <script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; M_i=Attention(QW_i^Q,KW_i^K,VK_i^V)</script></blockquote>
@@ -512,7 +512,7 @@ height:70vh;
             <p>Author：<a href="https://apexmeister.github.io">ApEx&mOmOcO</a>
             <p>原文链接：<a href="https://apexmeister.github.io/2019/09/22/blog3/">https://apexmeister.github.io/2019/09/22/blog3/</a>
             <p>发表日期：<a href="https://apexmeister.github.io/2019/09/22/blog3/">September 22nd 2019, 10:10:30 pm</a>
-            <p>更新日期：<a href="https://apexmeister.github.io/2019/09/22/blog3/">September 22nd 2019, 10:17:57 pm</a>
+            <p>更新日期：<a href="https://apexmeister.github.io/2019/09/22/blog3/">September 23rd 2019, 1:02:15 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可, 转载请注明出处</p>
         </div>
     
@@ -753,17 +753,17 @@ top:70vh;
     
         <span class="sidebar-tag-name" data-tags="tuitorial"><span class="iconfont-archer">&#xe606;</span>tuitorial</span>
     
-        <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
-    
-        <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
-    
-        <span class="sidebar-tag-name" data-tags="MultiWoz"><span class="iconfont-archer">&#xe606;</span>MultiWoz</span>
-    
         <span class="sidebar-tag-name" data-tags="self-attention"><span class="iconfont-archer">&#xe606;</span>self-attention</span>
     
         <span class="sidebar-tag-name" data-tags="Multi-turn"><span class="iconfont-archer">&#xe606;</span>Multi-turn</span>
     
         <span class="sidebar-tag-name" data-tags="Dialogue Generation"><span class="iconfont-archer">&#xe606;</span>Dialogue Generation</span>
+    
+        <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
+    
+        <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
+    
+        <span class="sidebar-tag-name" data-tags="MultiWoz"><span class="iconfont-archer">&#xe606;</span>MultiWoz</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -800,9 +800,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="apex"><span class="iconfont-archer">&#xe60a;</span>apex</span>
     
-        <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
-    
         <span class="sidebar-category-name" data-categories="NLG"><span class="iconfont-archer">&#xe60a;</span>NLG</span>
+    
+        <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
@@ -839,7 +839,23 @@ jsonContent:
     
         <script src="/scripts/share.js" async></script>    
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+</body>
 </html>
 
 

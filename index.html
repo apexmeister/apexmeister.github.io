@@ -820,17 +820,17 @@ More...
     
         <span class="sidebar-tag-name" data-tags="tuitorial"><span class="iconfont-archer">&#xe606;</span>tuitorial</span>
     
-        <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
-    
-        <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
-    
-        <span class="sidebar-tag-name" data-tags="MultiWoz"><span class="iconfont-archer">&#xe606;</span>MultiWoz</span>
-    
         <span class="sidebar-tag-name" data-tags="self-attention"><span class="iconfont-archer">&#xe606;</span>self-attention</span>
     
         <span class="sidebar-tag-name" data-tags="Multi-turn"><span class="iconfont-archer">&#xe606;</span>Multi-turn</span>
     
         <span class="sidebar-tag-name" data-tags="Dialogue Generation"><span class="iconfont-archer">&#xe606;</span>Dialogue Generation</span>
+    
+        <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
+    
+        <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
+    
+        <span class="sidebar-tag-name" data-tags="MultiWoz"><span class="iconfont-archer">&#xe606;</span>MultiWoz</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -867,9 +867,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="apex"><span class="iconfont-archer">&#xe60a;</span>apex</span>
     
-        <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
-    
         <span class="sidebar-category-name" data-categories="NLG"><span class="iconfont-archer">&#xe60a;</span>NLG</span>
+    
+        <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
@@ -904,7 +904,23 @@ jsonContent:
     </div>
     <!-- async load share.js -->
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+</body>
 </html>
 
 
