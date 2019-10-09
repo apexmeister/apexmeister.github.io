@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="ApEx&mOmOcO">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="ApEx&mOmOcO">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>《用于任务型对话的全局到本地的记忆指针网络》阅读笔记 · ApEx&amp;mOmOcO&#39;s Lofter</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >ApEx&amp;mOmOcO&#39;s Lofter.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">《用于任务型对话的全局到本地的记忆指针网络》阅读笔记</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>ApEx&mOmOcO's Lofter.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:70vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg1.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            《用于任务型对话的全局到本地的记忆指针网络》阅读笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "task-oriented">task-oriented</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Memory Network">Memory Network</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Pointer Network">Pointer Network</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">3.2k</span>Reading time: <span class="post-count reading-time">12 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/10/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><img src="//apexmeister.github.io/2019/10/09/blog4/1.png" alt="题图"></p>
+<h1 id="《用于任务型对话的全局到局部的记忆指针网络》阅读笔记"><a href="#《用于任务型对话的全局到局部的记忆指针网络》阅读笔记" class="headerlink" title="《用于任务型对话的全局到局部的记忆指针网络》阅读笔记"></a>《用于任务型对话的全局到局部的记忆指针网络》阅读笔记</h1><hr>
+<blockquote>
+<p><strong>题目：</strong>GLOBAL-TO-LOCAL MEMORY POINTER NETWORKS FOR TASK-ORIENTED DIALOGUE</p>
+<p><strong>来源：</strong>ICLR 2019</p>
+<p><strong>原文链接：</strong><a herf="https://arxiv.org/abs/1901.04713.pdf">https://arxiv.org/abs/1901.04713.pdf</a></p>
+<p><strong>论文代码：</strong><a herf="https://github.com/jasonwu0731/GLMP">https://github.com/jasonwu0731/GLMP</a></p>
+<p><strong>转载请注明出处：</strong><a herf="https://apexmeister.github.io/">apex&amp;momoco</a></p>
+</blockquote>
+<hr>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>端到端的任务型对话任务系统的实现一直充满挑战，因为知识库的<strong>庞大</strong>和<strong>不断变化</strong>以及<strong>难以并入一个学习框架</strong>里的特性。为解决这些问题，本文提出了<strong>GLMP网络</strong>：</p>
+<ul>
+<li><strong>全局记忆编码器</strong>：对<strong>对话历史</strong>进行编码，并且修改<strong>全局上下文表示</strong>，同时产生一个<strong>全局上下文指针</strong>。</li>
+<li><strong>局部记忆解码器</strong>：解码器生成一个<strong>带有空slots的响应草稿</strong>，通过<strong>全局记忆指针</strong>在<strong>外部知识库</strong>中过滤出有用的信息，通过<strong>局部记忆指针</strong>填上这些空slots</li>
+</ul>
+<p>全局记忆编码器和局部记忆解码器共享一个<strong>外部知识库</strong>。</p>
+<p>结果表明，GLMP在拷贝准确率和减弱常见的OOV问题的能力上均有提升，并且在<strong>simulated bAbI Dialogue dataset </strong> 以及<strong>human-human Stanford Multi-domain Dialogue dataset</strong> 两个数据集上进行自动或手动的测试均比以往表现最好的模型更好。</p>
+<hr>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>传统Pipeline方法</strong>实现任务型对话系统需要耗费精力设计每个单独的模块，基于<strong>端到端通过循环神经网络和记忆网络</strong>实现任务型对话系统的方法就显得省时省力同时还便于拓展领域。这种方法让对话状态在任务完成过程中的传递被隐藏起来并且<strong>不需要手动对每个状态进行标注</strong>还消除了<strong>对模块之间依赖关系建模</strong>和<strong>手工解释知识库</strong>的需求。</p>
+<p>然而，通过<strong>记忆网络</strong>建模知识库会过度将<strong>系统响应的生成</strong>和<strong>外部知识</strong>相结合。引入一个大型复杂的知识库相当于给<strong>模型输入</strong>附加了一个<strong>充满噪声的部分</strong>。与闲聊不同，在任务型对话中，需要<strong>准确获得知识库</strong>中的<strong>响应实体</strong>，引入大量噪声意味着响应的生成变得<strong>不稳定</strong>。</p>
+<p>综上所述，<strong>指针网络</strong>或<strong>拷贝网络</strong>所具备的直接从输入源中拷贝重要信息的能力就变得十分关键，同时这种拷贝方式也和人类获取信息的方式相似。</p>
+<p>因此，作者提出了<script type="math/tex">GLMP</script>网络。</p>
+<p><img src="//apexmeister.github.io/2019/10/09/blog4/2.png" alt></p>
+<hr>
+<h2 id="GLMP-Model"><a href="#GLMP-Model" class="headerlink" title="GLMP Model"></a>GLMP Model</h2><p>GLMP主要包括了三部分：<strong>外部知识库External Knowledge</strong>、<strong>全局记忆编码器Global Memory Encoder</strong>、<strong>局部记忆解码器Local Memory Decoder</strong>。</p>
+<p>首先定义：</p>
+<blockquote>
+<p>模型输入为：历史对话序列<script type="math/tex">X = (x_1,...,x_n)</script>、知识库<script type="math/tex">KB</script>的知识信息<script type="math/tex">B=(b_1,...,b_l)</script></p>
+<p>系统响应<script type="math/tex">Y=(y_1,...,y_m)</script>为期望输出</p>
+<p>其中<script type="math/tex">n,l,m</script>为对应的长度</p>
+</blockquote>
+<p>模型工作步骤如下：</p>
+<ul>
+<li>全局记忆编码器通过一个<strong>上下文RNN</strong>对历史对话进行编码，并将其隐藏状态写入外部知识。</li>
+<li>使用最后一个隐藏状态用来<strong>读取外部知识</strong>并生成一个<strong>全局记忆指针</strong>。</li>
+<li>解码过程中，本地记忆解码器通过一个<strong>草稿RNN</strong>生成草稿响应。</li>
+<li>将<strong>全局记忆指针</strong>和<strong>草图神经网络的隐藏状态</strong>则被作为一个<strong>过滤器</strong>和<strong>query</strong>传给外部知识库，最终获得系统响应。</li>
+</ul>
+<h3 id="External-Knowledge"><a href="#External-Knowledge" class="headerlink" title="External Knowledge"></a>External Knowledge</h3><p>外部知识库主要包括了一个<strong>全局上下文表示</strong>，这个表示被编码器和解码器所共享。</p>
+<p>通过<strong>端到端记忆网络</strong>来存储<strong>字级别的知识库内容</strong>以及<strong>具有时间依赖性的对话历史</strong>，由于记忆网络有较好的多跳推理能力，故非常适合用来增强拷贝机制。</p>
+<p><img src="//apexmeister.github.io/2019/10/09/blog4/3.png" alt></p>
+<h4 id="Global-contextual-representation"><a href="#Global-contextual-representation" class="headerlink" title="Global contextual representation"></a>Global contextual representation</h4><p>在<strong>KB储存模块</strong>中每个知识元素<script type="math/tex">b_i \in B</script>都表示一个三元组结构 <script type="math/tex">(Subject,Relation,Object)</script>。其次对话上下文<script type="math/tex">X</script>则被存储在<strong>对话存储模块</strong>中，其结构同样为三元组，可表示为<script type="math/tex">{($user,turn1,I),($user,turn1,need),($user,turn1,gas)}</script>。</p>
+<p>对于以上两个存储模块来说，通过一个词袋表示的方法来作为存储空间的嵌入。如推理过程中，通过直接指向一个存储地址来对这个词进行拷贝。</p>
+<script type="math/tex; mode=display">Object(.)$$被记作是从一个三元组中获得一个object词。
+
+#### Knowledge read and write
+
+> 记忆网络参考：<a href=https://blog.csdn.net/u014248127/article/details/84894739>**论文解读：记忆网络（Memory Network）**</a>
+
+外部知识模块由许多可训练的embedding矩阵组成 $$C =(C^1,...,C^{K + 1})$$；
+
+> 其中$$C^k \in R^{|V| \times d_{emb}}$$，$$K$$是记忆网络里最大跳跃次数，$$|V|$$是词汇表大小，$$d_{emb}$$是embedding的维度。
+
+把外部知识的存储定义为：$$M = [B;X]=(m_1,...,m_{n+l})$$；
+
+> 其中，$$m_i$$为上述三元组组成成分之一
+
+为了能够访问外部知识库，需要初始化一个query向量$$q^1$$，并且这个向量可以在循环遍历$$K$$次跳跃后计算每次跳跃$$k$$的注意力权重：
+
+> $$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; p_i^k=Softmax((q^k)^Tc_i^k)</script><p>&gt;</p>
+<blockquote>
+<p>其中，<script type="math/tex">c_i^k=B(C^k(m_i))\in R^{d_{emb}}</script>是在embedding矩阵<script type="math/tex">C^k</script>中第<script type="math/tex">i</script>个位置存储的embedding；</p>
+<p><script type="math/tex">q_k</script>是第k跳的query向量，而<script type="math/tex">B(.)</script>则是词袋函数。</p>
+</blockquote>
+<p>让<script type="math/tex">p^k \in R^{n+l}</script>为一个软存储attention，它决定了查询向量相关的存储空间。然后模型通过对<script type="math/tex">c^{k+1}</script>加权求和和并更新query向量<script type="math/tex">q^{k+1}</script>来读取存储空间<script type="math/tex">o^k</script>：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; o^k=\sum_ip_i^kc_i^{k+1},\;\;\;\;\;\;q^{k+1}=q^k+o^k.</script></blockquote>
+<h3 id="Global-Memory-Encoder"><a href="#Global-Memory-Encoder" class="headerlink" title="Global Memory Encoder"></a>Global Memory Encoder</h3><p><img src="//apexmeister.github.io/2019/10/09/blog4/4.png" alt></p>
+<p>如上图所示，<strong>全局记忆编码器</strong>首先用一个<strong>上下文RNN</strong>来建模<strong>序列依赖关系</strong>并且建模上下文<script type="math/tex">X</script>。然后把隐藏状态<script type="math/tex">H</script>写入外部知识中。如上一部分图<script type="math/tex">(b)</script>。</p>
+<p>然后最后一个编码器隐状态作为query来查询外部只是，并获得两个输出：<strong>全局记忆指针</strong>，<strong>记忆查询结果</strong>。</p>
+<p>由于用<strong>记忆网络</strong>来建模外部记忆之间的依赖关系十分困难，则通过写入隐藏状态到外部知识中作为连接边可以提供<strong>序列性</strong>和<strong>上下文性</strong>的信息。并且用合理的表示，指针能够正确地从外部知识中拷贝词汇，这样也能减弱OOV的问题。</p>
+<p>此外，使用已编码的对话历史作为query能够激励从外部知识中读取与<strong>隐藏对话状态</strong>或<strong>用户意图</strong>有关的<strong>记忆信息</strong>。并且学习了<strong>全局记忆分布</strong>的<strong>全局记忆指针</strong>和<strong>已编码的对话历史</strong>以及<strong>KB信息</strong>被一并传给解码器。</p>
+<h4 id="Context-RNN"><a href="#Context-RNN" class="headerlink" title="Context RNN"></a>Context RNN</h4><p>对话历史首先被一个GRU编码成隐状态序列：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; H=(h_1^e,...,h_n^e)</script></blockquote>
+<p>最后一个隐状态<script type="math/tex">h_1^e</script>用来作为对外部知识进行查询query的对话历史。</p>
+<p>此外隐状态序列<script type="math/tex">H</script>还被写入外部知识库中的对话历史模块，和<strong>该隐状态相关原始记忆表示</strong>进行求和：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; c_i^k=c_i^k+h_{m_i}^e \;\;\;\; if\;\;\; m_i \in X \;\; and \;\;\forall k \in [1, K+1]</script></blockquote>
+<h4 id="Global-memory-pointer"><a href="#Global-memory-pointer" class="headerlink" title="Global memory pointer"></a>Global memory pointer</h4><p>全局记忆指针<script type="math/tex">G=(g_1,...,g_{n+l})</script>是一个向量有0和1之间的真值组成。</p>
+<p>与传统的attention机制所有权值加和为一不同，<script type="math/tex">G</script>中每一个概率都是独立的。</p>
+<p>首先通过<script type="math/tex">h_n^e</script>对外部知识进行查询直到最后一跳，通过执行内积然后是<script type="math/tex">Sigmoid</script>得到每个记忆分布<script type="math/tex">g_i</script>，最终组成全局记忆分布<script type="math/tex">G</script>：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; g_i=Sigmoid((q^K)^Tc_i^K),\;\;\;g_i^l= \begin{cases} 1\;\;\;\;\;if\;\;Object(m_i)\in Y \\ 0\;\;\;\;\;otherwise \end{cases}</script></blockquote>
+<p>为了提升这个全局记忆分布的表现，作者还设置了一个<strong>辅助loss</strong>来把全局记忆指针当作多分类任务进行训练：</p>
+<blockquote>
+<p>首先设置了一组全局指针的标签：<script type="math/tex">G^{label}=(g_1^l,...,g_{n+l}^l)</script></p>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; Loss_g=-\sum_{i=1}^{n+l}[g_i^l \times log\;g_i+(1-g_i^l) \times log(1-g_i)]</script></blockquote>
+<p>通过这组标签以检测记忆中的词汇是否存在于预期的系统响应<script type="math/tex">Y</script>中，全局记忆指针则通过二元交叉熵在<script type="math/tex">G</script>和<script type="math/tex">G^{label}</script>之间进行训练。</p>
+<h3 id="Local-Memory-Decoder"><a href="#Local-Memory-Decoder" class="headerlink" title="Local Memory Decoder"></a>Local Memory Decoder</h3><p>给定<strong>已编码的对话历史</strong><script type="math/tex">h_n^e</script>，<strong>已编码的KB信息</strong><script type="math/tex">q^{K+1}</script>，以及<strong>全局记忆指针</strong><script type="math/tex">G</script>。</p>
+<p>通过拼接<script type="math/tex">h_n^e</script>和<script type="math/tex">q^{K+1}</script>，<strong>局部记忆解码器</strong>首先会初始化它的<strong>草稿RNN</strong>，生成一个<strong>草稿响应</strong>，该响应排除slot值，但包含草稿标记。</p>
+<blockquote>
+<p>例：sketch RNN会先生成“@poi is @distance away.” 而不是直接生成 “Starbucks is 1 mile away.”</p>
+</blockquote>
+<p>在每一个时间步的解码过程中，<strong>sketch RNN</strong>的隐状态的有两个作用：</p>
+<ul>
+<li>从词汇表中预测下一个生成词(token)。</li>
+<li>作为一个查询向量，用于查询外部知识。</li>
+</ul>
+<p>如果一个草稿里的标签被生成了，<strong>全局记忆指针</strong>则会被传给<strong>外部知识</strong>，然后<strong>局部记忆指针</strong>就会选出响应标签位置上期望产生的实体词，否则，这个词就会被<strong>sketch RNN</strong>直接生成。</p>
+<p><img src="//apexmeister.github.io/2019/10/09/blog4/5.png" alt></p>
+<p>@poi标记在第一个时间步生成，因此，Starbucks从<strong>局部记忆指针</strong>获取作为系统响应输出字的单词。</p>
+<h4 id="Sketch-RNN"><a href="#Sketch-RNN" class="headerlink" title="Sketch RNN"></a>Sketch RNN</h4><p>通过一个GRU来生成不带真实slot值的草稿响应<script type="math/tex">Y^s=(y_1^s,...,y_m^s)</script></p>
+<p><strong>Sketch RNN</strong>基于编码的<strong>对话历史</strong><script type="math/tex">h_n^e</script>和<strong>KB信息</strong><script type="math/tex">q^{K+1}</script>学习生成一个<strong>动态的的对话行为模板</strong>。</p>
+<p>每一个解码的时间步<script type="math/tex">t</script>，Sketch RNN的隐藏状态<script type="math/tex">h_t^d</script>及当前生成词的概率分布<script type="math/tex">P^{vocab}_t</script>为：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;h_t^d=GRU(C^1(\hat{y}^s_{t-1}),h^d_{t-1}),\;\;\;\;\;\;\;\;\;\; P_t^{vocab}=Softmax(Wh_t^d)</script></blockquote>
+<p>并且通过标准交叉熵对Sketch RNN进行训练：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; Loss_v=\sum_{t=1}^m-log(P_t^{vocab}(y_t^s))</script></blockquote>
+<h4 id="Local-memory-poiter"><a href="#Local-memory-poiter" class="headerlink" title="Local memory poiter"></a>Local memory poiter</h4><p>局部记忆指针<script type="math/tex">L=(L_1,...,L_m)</script>由指针序列组成。</p>
+<p>每个时间步<script type="math/tex">t</script>，<strong>全局记忆指针</strong><script type="math/tex">G</script>首先通过它的注意力机制修改<strong>全局上下文表示</strong>：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; c_i^k=c_i^k \times g_i,\;\;\;\;\; \forall i \in [1,n+l]\;\;and\;\; \forall k \in[1,K+1]</script></blockquote>
+<p>然后通过sketch RNN的隐藏状态<script type="math/tex">h_t^d</script>查询外部知识。</p>
+<p>最后一跳中的记忆attention对应的局部记忆指针<script type="math/tex">L_t</script>，它表示为时间步<script type="math/tex">t</script>时的记忆分布。</p>
+<p>为了训练局部记忆指针，在最后一跳的外部知识记忆注意力的基础上添加一个监督。</p>
+<p>首先，在解码时间步<script type="math/tex">t</script>，给局部记忆指针定义了位置标签<script type="math/tex">L^{label}</script>：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; L_t^{label}=\begin{cases} max(z)\;\;\;\;\;if\; \exist z \;s.t. y_t=Object(m_z)， \\ n+l+1\;\;\;\;\;otherwise \end{cases}</script></blockquote>
+<script type="math/tex; mode=display">L$$和$$L^label$$之间计算loss：
+
+>$$\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; Loss_l = \sum_{t=1}^m-log(L_t(L_t^{label}))</script><p>同时还设置了一个防止同一个实体词被多次拷贝的记录<script type="math/tex">R\in R^{n+l}</script>，<script type="math/tex">R</script>中的所有元素最开始都被初始化为1。</p>
+<p>在解码过程中，如果一个记忆位置被指向，那么<script type="math/tex">R</script>中对应的记忆位置将被掩蔽(masked out)。</p>
+<p>在推理时：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; \hat{y}_t=\begin{cases} argmax(P_t^{vocab})\;\;\;\;\;if\; argmax(P_t^{vocab}\notin ST， \\ Object(m_{argmax(L\odot R)})\;\;\;\;\;otherwise \end{cases}</script></blockquote>
+<p>最后，所有参数被联合训练，让三个loss加权求和最小化：</p>
+<blockquote>
+<script type="math/tex; mode=display">\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; Loss=\alpha Loss_g+\beta Loss_v+\gamma Loss_l</script></blockquote>
+<p>其中<script type="math/tex">\alpha、\beta、\gamma</script>均为超参数。</p>
+<hr>
+<h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>实验主要基于两个公开数据集：</p>
+<ul>
+<li><strong><em>the bAbI dialogue</em></strong></li>
+</ul>
+<p>bAbI数据集主要包括了五个关于餐厅领域的模拟任务，任务1到4分别是关于<strong>对API的调用</strong>、<strong>修改API调用</strong>、<strong>推荐选项</strong>和<strong>提供附加信息</strong>，任务5则是前4个任务的综合测试。</p>
+<p>每个任务有两个测试集：一个遵循与训练集相同的分布规律，另一个具有OOV实体值。</p>
+<ul>
+<li><strong><em>Stanford multi-domain dialogue(SMD)</em></strong></li>
+</ul>
+<p>该数据集是一个人和人之间的多领域对话数据集。</p>
+<p>主要包括了3个不同的领域：日历调度，气象信息检索和导航功能。</p>
+<blockquote>
+<p>两者区别在于前者对话轮数较多且对话内容规范；后者则含有相对较少的对话轮数、更<strong>多样化的响应内容</strong>以及<strong>复杂的知识库信息</strong>。</p>
+</blockquote>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><p><img src="//apexmeister.github.io/2019/10/09/blog4/6.png" alt></p>
+<p><img src="//apexmeister.github.io/2019/10/09/blog4/7.png" alt></p>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>这篇论文提出了一个用于任务型对话的端到端的可训练模型，称为全局到局部记忆指针网络。全局记忆编码器和局部记忆解码器的设计目的是将共享的外部知识整合到学习框架中。经验表明，全局和局部记忆指针能够有效地产生系统响应，甚至在词汇表外的情况下，并可视化全局内存指针的帮助。因此，模型在模拟数据集和人-人数据集上都达到了最高的水平，并具有扩展到其他任务如问答和文本摘要的潜力。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://apexmeister.github.io">ApEx&mOmOcO</a>
+            <p>原文链接：<a href="https://apexmeister.github.io/2019/10/09/blog4/">https://apexmeister.github.io/2019/10/09/blog4/</a>
+            <p>发表日期：<a href="https://apexmeister.github.io/2019/10/09/blog4/">October 9th 2019, 3:03:49 pm</a>
+            <p>更新日期：<a href="https://apexmeister.github.io/2019/10/09/blog4/">October 9th 2019, 3:04:35 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可, 转载请注明出处</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2019/09/22/blog3/" title= "《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记">
+                    <div class="prevTitle">《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:2224769796@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/apexmeister" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat_qr.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq_qr.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/teslooc/activities" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#《用于任务型对话的全局到局部的记忆指针网络》阅读笔记"><span class="toc-number">1.</span> <span class="toc-text">《用于任务型对话的全局到局部的记忆指针网络》阅读笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Abstract"><span class="toc-number">1.1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GLMP-Model"><span class="toc-number">1.3.</span> <span class="toc-text">GLMP Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#External-Knowledge"><span class="toc-number">1.3.1.</span> <span class="toc-text">External Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Global-contextual-representation"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Global contextual representation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Global-Memory-Encoder"><span class="toc-number">1.3.2.</span> <span class="toc-text">Global Memory Encoder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Context-RNN"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Context RNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Global-memory-pointer"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">Global memory pointer</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Local-Memory-Decoder"><span class="toc-number">1.3.3.</span> <span class="toc-text">Local Memory Decoder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Sketch-RNN"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">Sketch RNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Local-memory-poiter"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">Local memory poiter</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">1.4.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Result"><span class="toc-number">1.4.1.</span> <span class="toc-text">Result</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">1.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/2019/10/09/blog4/" >《用于任务型对话的全局到本地的记忆指针网络》阅读笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/22</span><a class="archive-post-title" href= "/2019/09/22/blog3/" >《ReCoSa：在多轮对话生成任务中通过自注意力机制检测相关上下文》阅读笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/blog2/" >《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2019/09/16/blog1/" >通过hexo和github-page搭建个人博客简单教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/16</span><a class="archive-post-title" href= "/2019/09/16/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="blog"><span class="iconfont-archer">&#xe606;</span>blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="tuitorial"><span class="iconfont-archer">&#xe606;</span>tuitorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
+    
+        <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
+    
+        <span class="sidebar-tag-name" data-tags="MultiWoz"><span class="iconfont-archer">&#xe606;</span>MultiWoz</span>
+    
+        <span class="sidebar-tag-name" data-tags="Memory Network"><span class="iconfont-archer">&#xe606;</span>Memory Network</span>
+    
+        <span class="sidebar-tag-name" data-tags="Pointer Network"><span class="iconfont-archer">&#xe606;</span>Pointer Network</span>
+    
+        <span class="sidebar-tag-name" data-tags="self-attention"><span class="iconfont-archer">&#xe606;</span>self-attention</span>
+    
+        <span class="sidebar-tag-name" data-tags="Multi-turn"><span class="iconfont-archer">&#xe606;</span>Multi-turn</span>
+    
+        <span class="sidebar-tag-name" data-tags="Dialogue Generation"><span class="iconfont-archer">&#xe606;</span>Dialogue Generation</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="apex"><span class="iconfont-archer">&#xe60a;</span>apex</span>
+    
+        <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
+    
+        <span class="sidebar-category-name" data-categories="E2E"><span class="iconfont-archer">&#xe60a;</span>E2E</span>
+    
+        <span class="sidebar-category-name" data-categories="NLG"><span class="iconfont-archer">&#xe60a;</span>NLG</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "ApEx&mOmOcO"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+</body>
+</html>
+
+
