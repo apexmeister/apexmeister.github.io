@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>通过hexo和github-page搭建个人博客简单教程 · ApEx&amp;mOmOcO&#39;s Lofter</title>
+    <title>QA系统问题中的常用指标 · ApEx&amp;mOmOcO&#39;s Lofter</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >ApEx&amp;mOmOcO&#39;s Lofter.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">通过hexo和github-page搭建个人博客简单教程</a>
+                <a href="#" class="post-name">QA系统问题中的常用指标</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:70vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            通过hexo和github-page搭建个人博客简单教程
+            QA系统问题中的常用指标
             <!-- 404 -->
             
         </h1>
@@ -266,22 +266,22 @@ height:70vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "hexo">hexo</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "QA">QA</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "blog">blog</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "IR">IR</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "tuitorial">tuitorial</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Metrics">Metrics</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">1.3k</span>Reading time: <span class="post-count reading-time">5 min</span></span>
+                        <span>Word count: <span class="post-count word-count">2.7k</span>Reading time: <span class="post-count reading-time">10 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/09/16</span>
+                    <span class="post-intro-time">2019/10/28</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -405,78 +405,149 @@ height:70vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="通过hexo和github-page搭建个人博客简单教程"><a href="#通过hexo和github-page搭建个人博客简单教程" class="headerlink" title="通过hexo和github-page搭建个人博客简单教程"></a>通过hexo和github-page搭建个人博客简单教程</h1><h2 id="github-io设置"><a href="#github-io设置" class="headerlink" title="github io设置"></a>github io设置</h2><ol>
-<li>注册github账号<a herf="https://github.com/">注册链接</a>;</li>
-<li>填写账户信息，完成注册并登录（注意：此用户名将作为 Blog 的域名）</li>
-<li>创建一个repo<br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1.png" alt="creat_repo" title="创建repo"></li>
-<li>填写 repo 的名称时注意格式：<code>username.github.io</code>，其他选项按默认即可</li>
-<li>初始化编辑github io，点击setting<br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_2.png" alt="setting" title="初始设置博客"></li>
-</ol>
-<p>拖到github pages，choose a theme初始化设置主题（之后会使用hexo进行修改）<img src="//apexmeister.github.io/2019/09/16/blog1/blog1_3.png" alt="setting" title="初始化主题"></p>
-<p>此时访问<code>username.github.io</code>就可以进入初始话成功的blog</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>在安装<strong>hexo</strong>之前需要先安装如下应用程序</p>
+        <h1 id="QA系统问题中的常用指标"><a href="#QA系统问题中的常用指标" class="headerlink" title="QA系统问题中的常用指标"></a>QA系统问题中的常用指标</h1><p>QA系统作为信息检索系统中的其中一种，其大致也通过信息检索系统的常用的指标进行性能评估。</p>
+<p>其评价指标主要可以分为两类：</p>
 <ul>
-<li><a herf="https://nodejs.org/en">Node.js</a>&nbsp; (6.9及以上)</li>
-<li><a herf="https://git-scm.com">Git</a>&nbsp;</li>
+<li>对单个查询进行评估的指标：对单个查询得到一个结果</li>
+<li>对多个查询进行评估的指标（通常用于对系统的评价）：求平均</li>
 </ul>
-<h4 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h4><p>简单的说 Node.js 就是运行在服务端的 JavaScript。</p>
-<p>Node.js 是一个基于Chrome JavaScript 运行时建立的一个平台。</p>
-<p>Node.js是一个事件驱动I/O服务端JavaScript环境，基于Google的V8引擎，V8引擎执行Javascript的速度非常快，性能非常好。</p>
-<h4 id="Git-分布式版本控制系统"><a href="#Git-分布式版本控制系统" class="headerlink" title="Git 分布式版本控制系统"></a>Git 分布式版本控制系统</h4><p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。</p>
-<h3 id="hexo介绍"><a href="#hexo介绍" class="headerlink" title="hexo介绍"></a>hexo介绍</h3><ul>
-<li>hexo 可以理解为是基于node.js制作的一个博客工具，不是我们理解的一个开源的博客系统。其中的差别，有点意思。</li>
-<li>hexo 正常来说，不需要部署到我们的服务器上，我们的服务器上保存的，其实是基于在hexo通过markdown编写的文章，然后hexo帮我们生成静态的html页面，然后，将生成的html上传到我们的服务器。简而言之：hexo是个静态页面生成、上传的工具。<br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_4.png" alt="hexo" title="hexo源码结构"><h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3>对于windows用户而言主要操作才<strong>命令提示符</strong>上进行</li>
-</ul>
-<p>通过<code>alt+r</code>呼唤出<em>运行</em><br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_5.png" alt="进入命令行" title="运行命令行"></p>
-<p>如图所示，输入<code>cmd</code>后进入命令行界面<br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_6.png" alt="命令行"></p>
-<p>进入命令行后通过以下指令安装hexo：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
-<p>若安装成功则可运行以下指令查看版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure></p>
-<h3 id="初始化hexo文件并与github-io绑定"><a href="#初始化hexo文件并与github-io绑定" class="headerlink" title="初始化hexo文件并与github io绑定"></a>初始化hexo文件并与github io绑定</h3><p>进入希望存储博客文件的盘符如D盘：<br></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:</span><br></pre></td></tr></table></figure>
-<p>输入<code>dir</code>查看当前盘符下的目录，并进入对应存储目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd THE\PATH\TO\YOUR\BLOG</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意：此目录必须为空目录才能初始化hexo</strong></p>
-<p>运行以下指令进行初始化：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure></p>
-<p>运行后hexo会自动下载一些文件到这个目录，结构如图：<br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_7.png" alt="结构" title="文件结构"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<p>现在在浏览器输入<a herf="http://localhost:4000">http://localhost:4000</a>即可看到hexo自带的主题和初始化界面<br><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_9.png" alt="初始hexo界面" title="hexo初始界面"></p>
-<h2 id="如何将hexo与github-page联系起来"><a href="#如何将hexo与github-page联系起来" class="headerlink" title="如何将hexo与github page联系起来"></a>如何将hexo与github page联系起来</h2><p>打开blog目录下的<code>_config.yml</code>,拖到最下面填写deploy：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:username/username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
-<p>若此时直接在博客目录下执行<code>hexo deploy</code>则会报以下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR Deployer not found:git</span><br></pre></td></tr></table></figure></p>
-<p>此时需要安装一个插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
-<p>此时可运行，三条常用指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dexo clean &amp;&amp; dexo g &amp;&amp; dexo deployer</span><br></pre></td></tr></table></figure></p>
-<p>第一次发布需要密码，因为 Hexo 要代替你将 repo 的改动 Push to Origin 。片刻之后，就可以在浏览器里测试访问 ：<code>https://username.github.io/</code></p>
-<p><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_12.png" alt="登录界面" title="登陆界面"></p>
+<hr>
+<h2 id="单个查询的评价指标"><a href="#单个查询的评价指标" class="headerlink" title="单个查询的评价指标"></a>单个查询的评价指标</h2><h3 id="P-amp-R"><a href="#P-amp-R" class="headerlink" title="P&amp;R"></a>P&amp;R</h3><p>召回率(Recall)=检出的相关文档数/相关文档数，也称为查全率，<script type="math/tex">R\in[0,1]</script></p>
+<p>准确率(Precision)=检出的相关文档数/检出文档数，也称为查准率，<script type="math/tex">P\in[0,1]</script></p>
 <blockquote>
-<p>注：发布过程可能会比较慢，如果需要本地预览测试可以先对博客内容进行修改，然后通过<code>hexo s</code>启动本地测试在<a herf="http://localhost:4000">http://localhost:4000</a>进行测试预览，待修改完成后再发布。</p>
+<p>例：某池塘有1400条鲤鱼，300只虾，300只鳖。现在以<strong>捕鲤鱼</strong>为目的。撒一大网，逮着了700条鲤鱼，200只虾，100只鳖。</p>
+<p>正确率precision = 700 / (700 + 200 + 100) = 70%</p>
+<p>召回率recall = 700 / 1400 = 50%</p>
+<p>F值  = 正确率 <em> 召回率 </em> 2 / (正确率 + 召回率) （F 值即为正确率和召回率的调和平均值）</p>
+<p>如果把池子里的所有的鲤鱼、虾和鳖都一网打尽，这些指标又有何变化：</p>
+<p>正确率 = 1400 / (1400 + 300 + 300) = 70%</p>
+<p>召回率 = 1400 / 1400 = 100%</p>
+<p>F值 = 70% <em> 100% </em> 2 / (70% + 100%) = 82.35%        </p>
+<p>由此可见：</p>
+<ul>
+<li><p>正确率是评估捕获的成果中目标成果所占得比例；</p>
+</li>
+<li><p>召回率，顾名思义，就是从关注领域中，召回目标类别的比例；</p>
+</li>
+<li><p>而F值，则是综合这二者指标的评估指标，用于综合反映整体的指标</p>
+</li>
+</ul>
 </blockquote>
-<p>到这一步github-io个人博客就可以通过本地hexo进行修改和发布了。</p>
-<h2 id="启用hexo主题"><a href="#启用hexo主题" class="headerlink" title="启用hexo主题"></a>启用hexo主题</h2><p>一般来说hexo初始化后目录中会有一个<code>themes</code>的文件夹，这个文件夹就是用来存放各种主题文件的。<br></p>
-<p>推荐一个可以在<a herf="https://hexo.io/themes">hexo官方主题网站</a>浏览寻找自己喜欢的主题</p>
-<p><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_10.png" alt="hexo-theme" title="hexo_theme"></p>
-<p>点击主题的名字即可跳转到该主题对应的github repo中</p>
-<p><img src="//apexmeister.github.io/2019/09/16/blog1/blog1_11.png" alt="hexo-theme-github" title="theme-github"></p>
-<p>点击<code>clone or download</code>获得clone指令后在博客目录下运行以下指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clong github.com/刚刚复制的地址/ themes/</span><br></pre></td></tr></table></figure></p>
-<p>然后修改博客主目录下的<code>_config.yml</code>中的<code>theme</code>字段，改成主题对应的名字即可</p>
-<p>然后再次运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure></p>
-<p>进行发布即可看到一个全新的blog了</p>
-<p>然后依照github上的readme教程就可以对主题进行后续修改和开发了。</p>
-<hr>
-<h2 id="其他功能或踩过的坑（持续更新）"><a href="#其他功能或踩过的坑（持续更新）" class="headerlink" title="其他功能或踩过的坑（持续更新）"></a>其他功能或踩过的坑（持续更新）</h2><h3 id="图片显示问题"><a href="#图片显示问题" class="headerlink" title="图片显示问题"></a>图片显示问题</h3><p>想要在hexo插入图片推荐一个方法比较好用的：<br></p>
-<p>首先，在博客主目录下安装一个插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure></p>
-<p>这个插件可以在创建新博客时<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;blog&quot;</span><br></pre></td></tr></table></figure></p>
-<p>除了创建<code>blog.md</code>还会创建一个同名的文件夹，这个文件夹就是用来存放需要贴在这篇文章里的图片用的</p>
-<p>然后再到主目录下修改<code>_config.yml</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure></p>
-<p>然后就可以在文章里通过如下语句进行图片插入了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![关于图片的描述](图片/的/路径 &quot;图片的描述&quot;)</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a herf="http://www.sherlocknlp.com/%E5%9F%BA%E4%BA%8E%20Hexo%20+%20Github%20Pages%20%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2">基于 Hexo + Github Pages 搭建个人博客</a><br><br><a herf="https://blog.csdn.net/qq_38148394/article/details/79997971">Hexo上传的图片在网页上无法显示的解决办法</a><br><br><a herf="https://www.jianshu.com/p/040485e84f28">踩坑填坑：github+hexo搭建自己的博客网站</a><br><br><a herf="https://www.jianshu.com/p/71f58f4b7b30">用 Github.io 和 Hexo 创建你的第一个博客</a><br></p>
+<p>在QA系统中，假设对3个正确答案7个错误答案组成的QA测试集进行分类，</p>
+<p>召回率(Recall)=被系统分类为正确的答案个数/正确答案总数，<script type="math/tex">R\in[0,1]</script></p>
+<p>准确率(Precision)=被系统分类为正确的答案个数/分类问题总数，<script type="math/tex">P\in[0,1]</script></p>
+<h3 id="F-Measure"><a href="#F-Measure" class="headerlink" title="F-Measure"></a>F-Measure</h3><p>当然希望检索结果Precision越高越好，同时Recall也越高越好，但事实上这两者在某些情况下有矛盾的：</p>
+<blockquote>
+<p>比如极端情况下，我们只搜索出了一个结果，且是准确的，那么Precision就是100%，但是Recall就很低；而如果我们把所有结果都返回，那么比如Recall是100%，但是Precision就会很低。</p>
+</blockquote>
+<p>P和R指标有时候会出现的矛盾的情况，这样就需要综合考虑他们，最常见的方法就是F-Measure（又称为F-Score）。</p>
+<p><strong>F-Measure是Precision和Recall加权调和平均</strong>：</p>
+<p><img src="https://img-blog.csdn.net/20130808110619562" alt="img"></p>
+<p>当参数α=1时，就是最常见的F1，也即</p>
+<p><img src="https://img-blog.csdn.net/20130808110942546" alt="img"></p>
+<p>可知F1综合了P和R的结果，当F1较高时则能说明试验方法比较有效。</p>
+<h3 id="Precision-Recall-曲线"><a href="#Precision-Recall-曲线" class="headerlink" title="Precision-Recall 曲线"></a>Precision-Recall 曲线</h3><p>因此在不同的场合中需要自己判断希望Precision比较高或是Recall比较高。</p>
+<p>如果是做实验研究，可以绘制<strong>Precision-Recall曲线</strong>来帮助分析。</p>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/1.jpg" alt></p>
+<p>P-R曲线的优点：简单直观；既考虑了检索结果的覆盖度，又考虑了检索结果的排序情况<br>P-R曲线的缺点：单个查询的P-R曲线虽然直观，但是难以明确表示两个查询的检索结果的优劣。</p>
+<h3 id="AP-Average-Precision"><a href="#AP-Average-Precision" class="headerlink" title="AP Average Precision"></a>AP Average Precision</h3><p>对给定的任务和类别，precision/recall曲线以一种方法的排序输出来计算。Recall被定义为给定序列上所有正样本的部分；precision被定义为正类别序列上的所有样本。AP概括了precision/recall曲线的形状，被定义为在一组11个等间距recall水平[0, 0.1, 0.2,…,1]上的precision平均值。这意味着我们选择11个不同的置信度阈值（这决定序列）。置信度阈值的设定需要使recall值，即插值为0，0.1，0.2，…，1。</p>
+<p>平均准确率AP是对不同召回率点上的正确率进行平均操作所得的结果：</p>
+<ol>
+<li>未插值的AP: 某个查询Q共有6个相关结果，某系统排序返回了5篇相关文档，其位置分别是第1，第2，第5，第10，第20位，则AP=(1/1+2/2+3/5+4/10+5/20+0)/6 ；</li>
+<li>插值的AP:在召回率分别为0,0.1,0.2,…,1.0的十一个点上的正确率求平均，等价于11点平均 ；</li>
+<li>只对返回的相关文档进行计算的AP, AP=(1/1+2/2+3/5+4/10+5/20)/5，倾向那些快速返回结果的系统，没有考虑召回率。</li>
+</ol>
+<h3 id="NDCG-Normalized-Discounted-Cumulative-Gain"><a href="#NDCG-Normalized-Discounted-Cumulative-Gain" class="headerlink" title="NDCG Normalized Discounted Cumulative Gain"></a>NDCG Normalized Discounted Cumulative Gain</h3><p>每个文档不仅仅只有<strong>相关</strong>和<strong>不相关</strong>两种情况，而是有<strong>相关度级别</strong>，比如0,1,2,3。</p>
+<p>故可以假设，对于返回结果：</p>
+<p>　　1、高关联度的结果比一般关联度的结果更影响最终的指标得分；</p>
+<p>　　2、有高关联度的结果出现在更靠前的位置的时候，指标会越高；</p>
+<p>NDCG(Normalized Discounted Cumulative Gain)：计算相对复杂。对于排在结位置n处的NDCG的计算公式如下：</p>
+<script type="math/tex; mode=display">
+N(n)=Z_n\sum_{j=1}^n(2^{r(j)}-1)/log(1+j)</script><ul>
+<li><p><strong>Gain</strong>:</p>
+<p>正确度分成从0到r的r+1的等级(r可设定)。当取r=5时，等级设定如下图所示：</p>
+</li>
+</ul>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/2.jpg" alt></p>
+<ul>
+<li><p><strong>Cumulative Gain</strong>:</p>
+<blockquote>
+<p>只考虑到了相关性的关联程度，没有考虑到位置的因素。它是一个搜素结果相关性分数的总和</p>
+<p>举例：假设搜索“篮球”结果，最理想的结果是：B1、B2、 B3。而出现的结果是 B3、B1、B2的话，CG的值是没有变化的，因此需要下面的DCG。</p>
+</blockquote>
+<p>例如现在有一个查询query={abc}，返回下图左列的Ranked List(URL)，当假设用户的选择与排序结果无关（即每一级都等概率被选中），则生成的累计增益值（从1到n的所有的位置上的贡献值都被加起来作为最终的评价结果，这样，一个一定长度的文档序列被转换成了一个相关分值的序列）。如下图最右列所示：</p>
+</li>
+</ul>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/3.jpg" alt></p>
+<ul>
+<li><p><strong>Discounted Cumulative Gain</strong>:</p>
+<blockquote>
+<p>目的就是为了让排名越靠前的结果越能影响最后的结果。假设排序越往后，价值越低</p>
+</blockquote>
+<p>考虑到一般情况下用户会优先点选排在前面的搜索结果，所以应该引入一个折算因子(discounting factor): <script type="math/tex">1/log_2(1+rank)</script>。那么第i个结果产生的效益就是:</p>
+<script type="math/tex; mode=display">
+DCG_n = \sum_{i=1}^n\frac{r_i}{log_2(i+1)}</script><p>引入相关影响度比重计算DCG：</p>
+<script type="math/tex; mode=display">
+DCG_n = \sum_{i=1}^n\frac{2^{r_i}-1}{log_2(i+1)}</script><p>这时将获得DCG值(Discounted Cumulative Gain)如下如所示：</p>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/4.jpg" alt></p>
+</li>
+<li><p><strong>NDCG</strong>:</p>
+<blockquote>
+<p>NDCG， Normalized 的DCG，由于搜索结果随着检索词的不同，返回的数量是不一致的，而DCG是一个累加的值，没法针对两个不同的搜索结果进行比较，因此需要归一化处理。</p>
+</blockquote>
+<p>最后，为了使不同等级上的搜索结果的得分值容易比较，需要将DCG值归一化的到NDCG值。</p>
+<p>操作如下图所示，首先计算理想排序后返回结果List的最大的MaxDCG值：</p>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/5.jpg" alt></p>
+<p>然后用DCG/MaxDCG就得到NDCG值，如下图所示：</p>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/6.jpg" alt></p>
+</li>
+</ul>
+<p>故如上图所示，NDCG@5 = 87%。</p>
+<blockquote>
+<p>NDCG优点：图形直观，易解释；支持非二值的相关度定义，比P-R曲线更精确；能够反映用户的行为特征(如：用户的持续性persistence)<br>NDCG缺点：相关度的定义难以一致；需要参数设定</p>
+</blockquote>
+<h2 id="多个查询的评价指标"><a href="#多个查询的评价指标" class="headerlink" title="多个查询的评价指标"></a>多个查询的评价指标</h2><p>多个查询的评价指标，一般就是对单个查询的评价进行求平均。平均的求法一般有两种：</p>
+<ol>
+<li>宏平均（Macro Average）：对每个查询求出某个指标，然后对这些指标进行算术平均</li>
+<li>微平均（Micro Average）：将所有查询视为一个查询，将各种情况的文档总数求和，然后进行指标的计算</li>
+</ol>
+<blockquote>
+<p>例如：</p>
+<p>Micro Precision=（对所有查询检出的相关文档总数)/(对所有查询检出的文档总数)</p>
+<ul>
+<li><p>宏平均对所有查询一视同仁</p>
+</li>
+<li><p>微平均受返回相关文档数目比较大的查询影响。</p>
+</li>
+</ul>
+<p>宏平均和微平均的例子：<br>两个查询q1、q2的标准答案数目分别为100个和50个，某系统对q1检索出80个结果，其中正确数目为40，系统对q2检索出30个结果，其中正确数目为24，则：<br>P1=40/80=0.5, R1=40/100=0.4<br>P2=24/30=0.8, R2=24/50=0.48<br>MacroP=(P1+P2)/2=0.65<br>MacroR=(R1+R2)/2=0.44<br>MicroP=(40+24)/(80+30)=0.58<br>MicroR=(40+24)/(100+50)=0.43</p>
+</blockquote>
+<h3 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h3><p>MAP(MeanAP ：Mean Average Precision)：对所有查询的AP求宏平均。具体而言，单个主题的<strong>平均准确率</strong>是每篇相关文档检索出后的<strong>准确率的平均值</strong>。主集合的平均准确率(MAP)是每个主题的<strong>平均准确率（AP）的平均值</strong>。</p>
+<p>MAP 是反映系统在全部相关文档上性能的单值指标。系统检索出来的相关文档越靠前(rank 越高)，MAP就可能越高。如果系统没有返回相关文档，则准确率默认为0。</p>
+<p>多个查询下的查准率/查全率曲线，可通过计算其平均查准率得到，公式如下(Nq为查询的数量) ：</p>
+<script type="math/tex; mode=display">
+MAP=\bar{P}(r)=\sum_{i=1}^{N_q}\frac{Pi(r)}{N_q}</script><p>P(r) 是指查全率为r时的平均查准率, Pi(r)指查全率为r时的第i个查询的查准率 。</p>
+<blockquote>
+<p>例如：假设有两个主题，主题1有4个相关网页，主题2有5个相关网页。某系统对于主题1检索出4个相关网页，其rank分别为1, 2, 4, 7；对于主题2检索出3个相关网页，其rank分别为1,3,5。对于主题1，平均准确率为(1/1+2/2+3/4+4/7)/4=0.83。对于主题2，平均准确率为(1/1+2/3+3/5+0+0)/5=0.45。则MAP= (0.83+0.45)/2=0.64。</p>
+</blockquote>
+<h3 id="MRR"><a href="#MRR" class="headerlink" title="MRR"></a>MRR</h3><p>MRR(Mean Reciprocal Rank) ：对于某些IR系统（如问答系统或主页发现系统），只关心<strong>第一个标准答案</strong>返回的位置(Rank)，越前越好，这个位置的倒数称为RR，对问题集合求平均，则得到MRR。（把标准答案在被评价系统给出结果中的排序取倒数作为它的准确度，再对所有的问题取平均）</p>
+<blockquote>
+<p>例一：两个query，系统对第一个问题返回的标准答案的Rank是2，对第二个问题返回的标准答案的Rank是4，则系统的MRR为(1/2+1/4)/2=3/8</p>
+<p>再举个例子：有3个query如下图所示：（黑体为返回结果中最匹配的一项）</p>
+<p><img src="//apexmeister.github.io/2019/10/28/blog5/7.jpg" alt></p>
+</blockquote>
+<p>可计算这个系统的MRR值为：(1/3 + 1/2 + 1)/3 = 11/18=0.61。</p>
+<h3 id="R-n-k"><a href="#R-n-k" class="headerlink" title="R_n@k"></a><script type="math/tex">R_n@k</script></h3><p>该指标计算的是：</p>
+<p>在给定n个候选答案的情况下，抽取最匹配(best-matched)的k个答案，计算这k个答案中正确答案的召回率</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>Author：<a href="https://apexmeister.github.io">ApEx&mOmOcO</a>
-            <p>原文链接：<a href="https://apexmeister.github.io/2019/09/16/blog1/">https://apexmeister.github.io/2019/09/16/blog1/</a>
-            <p>发表日期：<a href="https://apexmeister.github.io/2019/09/16/blog1/">September 16th 2019, 9:23:29 pm</a>
-            <p>更新日期：<a href="https://apexmeister.github.io/2019/09/16/blog1/">September 17th 2019, 3:49:30 pm</a>
+            <p>原文链接：<a href="https://apexmeister.github.io/2019/10/28/blog5/">https://apexmeister.github.io/2019/10/28/blog5/</a>
+            <p>发表日期：<a href="https://apexmeister.github.io/2019/10/28/blog5/">October 28th 2019, 8:26:49 pm</a>
+            <p>更新日期：<a href="https://apexmeister.github.io/2019/10/28/blog5/">October 28th 2019, 8:28:26 pm</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可, 转载请注明出处</p>
         </div>
     
@@ -484,17 +555,12 @@ height:70vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/09/18/blog2/" title= "《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记">
-                    <div class="nextTitle">《Sequicity：带有单seq2seq结构的简化面向任务型对话系统》阅读笔记</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/09/16/hello-world/" title= "Hello World">
-                    <div class="prevTitle">Hello World</div>
+                <a href= "/2019/10/09/blog4/" title= "《用于任务型对话的全局到本地的记忆指针网络》阅读笔记">
+                    <div class="prevTitle">《用于任务型对话的全局到本地的记忆指针网络》阅读笔记</div>
                 </a>
             
         </li>
@@ -624,7 +690,7 @@ top:70vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#通过hexo和github-page搭建个人博客简单教程"><span class="toc-number">1.</span> <span class="toc-text">通过hexo和github-page搭建个人博客简单教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#github-io设置"><span class="toc-number">1.1.</span> <span class="toc-text">github io设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境配置"><span class="toc-number">1.2.</span> <span class="toc-text">环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境要求"><span class="toc-number">1.2.1.</span> <span class="toc-text">环境要求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Node-js"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Node.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-分布式版本控制系统"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">Git 分布式版本控制系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo介绍"><span class="toc-number">1.2.2.</span> <span class="toc-text">hexo介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo安装"><span class="toc-number">1.2.3.</span> <span class="toc-text">hexo安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化hexo文件并与github-io绑定"><span class="toc-number">1.2.4.</span> <span class="toc-text">初始化hexo文件并与github io绑定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何将hexo与github-page联系起来"><span class="toc-number">1.3.</span> <span class="toc-text">如何将hexo与github page联系起来</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启用hexo主题"><span class="toc-number">1.4.</span> <span class="toc-text">启用hexo主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他功能或踩过的坑（持续更新）"><span class="toc-number">1.5.</span> <span class="toc-text">其他功能或踩过的坑（持续更新）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#图片显示问题"><span class="toc-number">1.5.1.</span> <span class="toc-text">图片显示问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">1.6.</span> <span class="toc-text">reference</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#QA系统问题中的常用指标"><span class="toc-number">1.</span> <span class="toc-text">QA系统问题中的常用指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单个查询的评价指标"><span class="toc-number">1.1.</span> <span class="toc-text">单个查询的评价指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#P-amp-R"><span class="toc-number">1.1.1.</span> <span class="toc-text">P&amp;R</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#F-Measure"><span class="toc-number">1.1.2.</span> <span class="toc-text">F-Measure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Precision-Recall-曲线"><span class="toc-number">1.1.3.</span> <span class="toc-text">Precision-Recall 曲线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AP-Average-Precision"><span class="toc-number">1.1.4.</span> <span class="toc-text">AP Average Precision</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NDCG-Normalized-Discounted-Cumulative-Gain"><span class="toc-number">1.1.5.</span> <span class="toc-text">NDCG Normalized Discounted Cumulative Gain</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多个查询的评价指标"><span class="toc-number">1.2.</span> <span class="toc-text">多个查询的评价指标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MAP"><span class="toc-number">1.2.1.</span> <span class="toc-text">MAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MRR"><span class="toc-number">1.2.2.</span> <span class="toc-text">MRR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#R-n-k"><span class="toc-number">1.2.3.</span> <span class="toc-text">R_n@k</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
