@@ -266,11 +266,11 @@ height:70vh;
                 
                     <div class= post-intro-tags >
     
+        <a class="post-tag" href="javascript:void(0);" data-tags = "task-oriented">task-oriented</a>
+    
         <a class="post-tag" href="javascript:void(0);" data-tags = "Memory Network">Memory Network</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "Pointer Network">Pointer Network</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "task-oriented">task-oriented</a>
     
 </div>
                 
@@ -842,10 +842,6 @@ top:70vh;
     
         <span class="sidebar-tag-name" data-tags="tuitorial"><span class="iconfont-archer">&#xe606;</span>tuitorial</span>
     
-        <span class="sidebar-tag-name" data-tags="Memory Network"><span class="iconfont-archer">&#xe606;</span>Memory Network</span>
-    
-        <span class="sidebar-tag-name" data-tags="Pointer Network"><span class="iconfont-archer">&#xe606;</span>Pointer Network</span>
-    
         <span class="sidebar-tag-name" data-tags="task-oriented"><span class="iconfont-archer">&#xe606;</span>task-oriented</span>
     
         <span class="sidebar-tag-name" data-tags="seq2seq"><span class="iconfont-archer">&#xe606;</span>seq2seq</span>
@@ -857,6 +853,10 @@ top:70vh;
         <span class="sidebar-tag-name" data-tags="Multi-turn"><span class="iconfont-archer">&#xe606;</span>Multi-turn</span>
     
         <span class="sidebar-tag-name" data-tags="Dialogue Generation"><span class="iconfont-archer">&#xe606;</span>Dialogue Generation</span>
+    
+        <span class="sidebar-tag-name" data-tags="Memory Network"><span class="iconfont-archer">&#xe606;</span>Memory Network</span>
+    
+        <span class="sidebar-tag-name" data-tags="Pointer Network"><span class="iconfont-archer">&#xe606;</span>Pointer Network</span>
     
         <span class="sidebar-tag-name" data-tags="QA"><span class="iconfont-archer">&#xe606;</span>QA</span>
     
@@ -899,11 +899,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="apex"><span class="iconfont-archer">&#xe60a;</span>apex</span>
     
-        <span class="sidebar-category-name" data-categories="E2E"><span class="iconfont-archer">&#xe60a;</span>E2E</span>
-    
         <span class="sidebar-category-name" data-categories="dialog"><span class="iconfont-archer">&#xe60a;</span>dialog</span>
     
         <span class="sidebar-category-name" data-categories="NLG"><span class="iconfont-archer">&#xe60a;</span>NLG</span>
+    
+        <span class="sidebar-category-name" data-categories="E2E"><span class="iconfont-archer">&#xe60a;</span>E2E</span>
     
         <span class="sidebar-category-name" data-categories="Metrics"><span class="iconfont-archer">&#xe60a;</span>Metrics</span>
     
@@ -942,7 +942,23 @@ jsonContent:
     
         <script src="/scripts/share.js" async></script>    
      
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+</body>
 </html>
 
 
